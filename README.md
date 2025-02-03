@@ -10,17 +10,11 @@ Nutrisite is a web application that allows users to upload food photos and get n
 - Upload food photos
 - Display nutrition information
 
+## Prerequisites
+
+- An AWS account to deploy (all resources used here have a generous free tier)
+- A [DietGram API](https://rapidapi.com/bulat.yauheni/api/dietagram) api key.
+
 ## Setup
 
-### Prerequisites
-
-- Node.js (v22)
-- AWS Amplify CLI
-
-### Installation
-
-1. Clone the repository:
-
-   ```sh
-   git clone https://github.com/your-username/nutrisite.git
-   cd nutrisite
+See the nutrisite-* folders on how to run the application
