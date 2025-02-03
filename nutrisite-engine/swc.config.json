@@ -1,0 +1,24 @@
+{
+    "jsc": {
+        "parser": {
+            "syntax": "typescript",
+            "tsx": false,
+            "decorators": true
+        },
+        "target": "es2020",
+        "loose": false
+    },
+    "module": {
+        "type": "commonjs",
+        "strict": true,
+        "strictMode": true,
+        "noInterop": false,
+        "lazy": false
+    },
+    "exclude": [
+        ".*\\.d\\.ts$",
+        ".*\\.test\\.ts$",
+        "node_modules"
+    ],
+    "sourceMaps": true
+}

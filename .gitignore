@@ -1,5 +1,5 @@
 # env
-**/.env
+**.env
 
 # js
 **/dist
@@ -18,3 +18,7 @@
 **/package-lock.json
 **/yarn.lock
 **/.cdk.staging
+
+# Logs
+**logs
+**/*.log
