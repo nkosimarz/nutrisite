@@ -31,6 +31,10 @@ jobs:
         run: npm test
         working-directory: nutrisite-www
 
+      - name: Install dependencies
+        run: npm install
+        working-directory: nutrisite-engine
+
       - name: Run backend tests
         run: npm test
         working-directory: nutrisite-engine
