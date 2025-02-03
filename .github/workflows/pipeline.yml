@@ -1,0 +1,36 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: nutrisite-www
+
+      - name: Set environment variables
+        run: |
+          echo "VITE_API_URL=dummy_api_url" >> $GITHUB_ENV
+          echo "VITE_USER_POOL_ID=dummy_user_pool_id" >> $GITHUB_ENV
+          echo "VITE_CLIENT_ID=dummy_client_id" >> $GITHUB_ENV
+
+      - name: Run frontend tests
+        run: npm test
+        working-directory: nutrisite-www
+
+      - name: Run backend tests
+        run: npm test
+        working-directory: nutrisite-engine

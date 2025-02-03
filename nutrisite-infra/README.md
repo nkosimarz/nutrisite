@@ -10,6 +10,17 @@ Use node 22 or use nvm to switch to the node version used in this project.
 
 Create a .env file with a DIETAGRAM_API_KEY, if you dont have this yoo will get a sample response.
 
+## Build www and engine
+
+```sh
+cd nutrisite-engine
+npm run build
+zip -r lambda.zip dist node_modules
+cd ../
+cd nutrisite-www
+npm run build
+```
+
 ## Deployment
 
 To deploy your application ensure you have you AWS credentials configured and you have the aws cli.
