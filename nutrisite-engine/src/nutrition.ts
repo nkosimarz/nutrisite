@@ -1,5 +1,4 @@
 import type { APIGatewayEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { NutritionResponse } from './types';
 import * as dotenv from 'dotenv';
 import axios from 'axios';
 import { transformResponse } from './utils';
@@ -9,10 +8,10 @@ export async function handler(
     event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> {
     try {
-        const dietagramApiKey = '' // process.env.DIETAGRAM_API_KEY;
+        const dietagramApiKey = process.env.DIETAGRAM_API_KEY;
 
         const requestBody = JSON.parse(event.body || '{}');
-        const imageBase64 = requestBody.image;
+        const imageBase64 = typeof requestBody !== 'string' ? requestBody.image : JSON.parse(requestBody).image;
 
         if (!imageBase64) {
             throw new Error('No image found in request');
@@ -77,6 +76,7 @@ export async function handler(
             body: JSON.stringify(result)
         };
     } catch (error) {
+        console.error('Error processing request:', error);
         return {
             statusCode: 500,
             body: JSON.stringify({ error })

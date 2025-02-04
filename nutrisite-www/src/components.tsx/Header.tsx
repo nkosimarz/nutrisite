@@ -22,7 +22,6 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated, onLogout }) => {
                 {isAuthenticated && (
                     <div className="header-buttons">
                         <button onClick={() => navigate('/')}>Home</button>
-                        <button onClick={() => navigate('/meals')}>Meals</button>
                         <button onClick={handleSignOut}>Sign Out</button>
                     </div>
                 )}

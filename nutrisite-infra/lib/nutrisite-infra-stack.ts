@@ -9,7 +9,6 @@ import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as dotenv from 'dotenv';
-import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 dotenv.config();
 
 export class NutrisiteInfraStack extends cdk.Stack {
@@ -71,6 +70,7 @@ export class NutrisiteInfraStack extends cdk.Stack {
       environment: {
         DIETAGRAM_API_KEY: dietagramApiKey || '',
       },
+      timeout: cdk.Duration.seconds(30),
     });
 
     const userPool = new cognito.UserPool(this, 'NutriSiteUserPool', {

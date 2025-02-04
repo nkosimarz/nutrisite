@@ -11,6 +11,7 @@ interface FoodUploadProps {
 const FoodUpload: React.FC<FoodUploadProps> = ({ setNutritionData }) => {
     const [image, setImage] = useState<File | null>(null);
     const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +30,7 @@ const FoodUpload: React.FC<FoodUploadProps> = ({ setNutritionData }) => {
         event.preventDefault();
         if (!image) return;
 
+        setLoading(true);
         const reader = new FileReader();
         reader.onloadend = async () => {
             const base64Image = reader.result?.toString().split(',')[1];
@@ -60,7 +62,7 @@ const FoodUpload: React.FC<FoodUploadProps> = ({ setNutritionData }) => {
                                 'Content-Type': 'application/json',
                                 'Authorization': `Bearer ${token}`,
                             },
-                            body: base64Image,
+                            body: JSON.stringify({ image: base64Image }),
                         },
                     }).response;
                 const data = await (await response).body.json() as unknown as NutritionData;
@@ -69,6 +71,8 @@ const FoodUpload: React.FC<FoodUploadProps> = ({ setNutritionData }) => {
                 return;
             } catch (error) {
                 console.error('Error uploading image:', error);
+            } finally {
+                setLoading(false);
             }
         };
         reader.readAsDataURL(image);
@@ -87,7 +91,16 @@ const FoodUpload: React.FC<FoodUploadProps> = ({ setNutritionData }) => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <input type="file" accept="image/*" onChange={handleFileChange} />
-                    <button type="submit">Get Nutrition Info</button>
+                    <button type="submit" disabled={loading}>
+                        {loading ? (
+                            <>
+                                Getting Info ...
+                                <span className="spinner"></span>
+                            </>
+                        ) : (
+                            'Get Nutrition Info'
+                        )}
+                    </button>
                 </div>
             </form>
         </div>

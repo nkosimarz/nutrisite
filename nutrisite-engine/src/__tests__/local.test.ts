@@ -1,8 +1,8 @@
 import request from 'supertest';
 import express from 'express';
-import { handler as nutritionHandler } from '../nutrition';
 import cors from 'cors';
 import { APIGatewayEvent } from 'aws-lambda';
+import { mockHandler } from './nutrition.test';
 
 const app = express();
 app.use(express.json());
@@ -27,7 +27,7 @@ app.post('/api/nutrition', async (req, res) => {
     };
 
     try {
-        const result = await nutritionHandler(event);
+        const result = await mockHandler(event);
         res.status(result.statusCode).json(JSON.parse(result.body));
     } catch (error) {
         console.error('Error getting nutrition data (local):', error);
